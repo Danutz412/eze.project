@@ -25,3 +25,43 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+# Laravel
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+/.fleet
+/.idea
+/.vscode
+
+# Composer
+composer.lock
+
+# Laravel specific
+/bootstrap/cache
+/storage/framework/cache/data
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*.log
+
+# IDE
+.DS_Store
+Thumbs.db
+
+# Member folders (these are for reference only, should be managed separately)
+member1-auth-setup Dan/
+member2-frontend-landing Tania/
+member3-customer-dashboard Iva/
+member4-admin-panel Emil/
+member5-stripe-subscription Iulian/
+member6-docker-pdf-docs Boris/
