@@ -52,6 +52,44 @@ class SubscriptionController extends Controller
             'issued_at' => now(),
         ]);
 
+        // Update user's controlling string to reflect active subscription
+        $user = auth()->user();
+        
+        // Ensure user has an ezepost_user record
+        $ezepostUser = $user->ezepostUser;
+        if (!$ezepostUser) {
+            // Generate proper controlling string using the service
+            $controllingStringService = app(\App\Services\ControllingStringService::class);
+            $controlstring = $controllingStringService->generateFromPlan($plan, $period);
+            
+            $ezepostUser = \App\Models\EzepostUser::create([
+                'user_id' => $user->id,
+                'username' => strtolower(str_replace(' ', '', $user->name)),
+                'vepost_addr' => strtolower(str_replace(' ', '', $user->name)) . '@example.com#ezepost',
+                'password' => $user->password ?? \Illuminate\Support\Facades\Hash::make('default_password'),
+                'controlstring' => $controlstring,
+                'status' => 'active',
+                'user_group' => $plan->user_group_code ?? 0,
+            ]);
+        }
+
+        // Update controlling string with new plan
+        $controllingStringService = app(\App\Services\ControllingStringService::class);
+        $currentControlString = $ezepostUser->controlstring ?? str_pad('10000', 20, '0');
+        
+        // Update plan code in controlling string (index 2)
+        $newControlString = $controllingStringService->updatePlan(
+            $currentControlString,
+            $plan->id,
+            $plan->team_size_code ?? 0,
+            $plan->package_size_code ?? 0
+        );
+
+        $ezepostUser->update([
+            'controlstring' => $newControlString,
+            'user_group' => $plan->user_group_code ?? 0,
+        ]);
+
         return redirect()->route('customer.invoices.show', $invoice)
             ->with('success', 'Subscription completed successfully!');
     }

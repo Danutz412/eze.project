@@ -205,8 +205,10 @@ class TransferController extends Controller
             $expiresAt = now()->addHours($expirationHours);
         }
 
-        // Create transfer using User relationships
+        // Create transfer using EzepostUser relationships
         $transfer = EzepostTracking::create([
+            'sender_ezepost_user_id' => auth()->user()->ezepostUser?->id,
+            'receiver_ezepost_user_id' => $recipientUser?->ezepostUser?->id,
             'sender_user_id' => auth()->id(),
             'receiver_user_id' => $recipientUser ? $recipientUser->id : null,
             'transfer_reference' => 'UID-' . uniqid(),
@@ -220,6 +222,7 @@ class TransferController extends Controller
             'require_password' => $validated['require_password'] ?? false,
             'track_download' => $validated['track_download'] ?? true,
             'expires_at' => $expiresAt,
+            'transferred_at' => now(),
         ]);
 
         // Send email notification if requested

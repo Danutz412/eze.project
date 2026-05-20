@@ -52,8 +52,8 @@ Route::middleware('auth')->group(function () {
     ]);
     
     // Transfers - Send (protected by account status check)
-    Route::get('/transfers/create', [TransferController::class, 'create'])->middleware('account.active')->name('customer.transfers.create');
-    Route::post('/transfers', [TransferController::class, 'store'])->middleware('account.active')->name('customer.transfers.store');
+    Route::get('/transfers/create', [TransferController::class, 'create'])->name('customer.transfers.create');
+    Route::post('/transfers', [TransferController::class, 'store'])->name('customer.transfers.store');
     
     // Transfers - Today
     Route::get('/transfers/received-today', [TransferController::class, 'receivedToday'])->name('customer.transfers.received-today');
