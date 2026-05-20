@@ -28,7 +28,8 @@
     </div>
 </div>
 
-<!-- Subscription Status Warning -->
+<!-- Subscription Status Warning (only show if no active subscription) -->
+@if(!$hasActiveSubscription)
 <div class="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
     <div class="flex items-start">
         <svg class="w-6 h-6 text-red-600 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -53,6 +54,7 @@
         </div>
     </div>
 </div>
+@endif
 
 <!-- Subscription Status & License(s) Section -->
 <div class="bg-white rounded-lg shadow-sm p-6 mb-6">

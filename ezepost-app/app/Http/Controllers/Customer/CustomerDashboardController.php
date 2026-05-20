@@ -23,6 +23,15 @@ class CustomerDashboardController extends Controller
         $teams = \App\Models\Team::with('owner')
             ->get();
 
+        // Check subscription status
+        $hasActiveSubscription = false;
+        if ($user->ezepostUser) {
+            // Check if user has a subscription via controlling string (index 2 > 0 means has plan)
+            $controlString = $user->ezepostUser->controlstring;
+            $planCode = (int)substr($controlString, 2, 1);
+            $hasActiveSubscription = $planCode > 0; // 0=Top-up (no subscription), 1+=Active plan
+        }
+
         return view('customer.dashboard', [
             'sent' => EzepostTracking::where('sender_user_id', $user->id)->count(),
             'received' => EzepostTracking::where('receiver_user_id', $user->id)->count(),
@@ -34,6 +43,7 @@ class CustomerDashboardController extends Controller
              ->count(),
             'recentActivity' => $recentActivity,
             'teams' => $teams,
+            'hasActiveSubscription' => $hasActiveSubscription,
         ]);
     }
 }

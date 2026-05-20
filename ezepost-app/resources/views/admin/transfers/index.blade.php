@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.admin')
+
+@section('title', 'All Transfers')
 
 @section('content')
 <div class="max-w-7xl mx-auto">

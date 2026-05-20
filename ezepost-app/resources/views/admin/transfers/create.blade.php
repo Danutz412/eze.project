@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.admin')
+
+@section('title', 'Send File Transfer')
 
 @section('content')
 <div class="max-w-2xl mx-auto">
