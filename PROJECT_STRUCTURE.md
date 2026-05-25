@@ -303,14 +303,13 @@ Each team member can present their work by:
 ## ✅ Current Status
 
 **Completed:**
-- ✅ Authentication system (Dan)
-- ✅ Customer dashboard (Iva)
-- ✅ Admin panel (Emil)
-- ✅ User management (Dan + Emil)
-- ✅ Account locking (Dan + Emil)
-- ✅ PDF receipts (Boris)
-- ✅ Team management (Iva)
-
+- ✅ Authentication system
+- ✅ Customer dashboard
+- ✅ Admin panel
+- ✅ User management
+- ✅ Account locking
+- ✅ PDF receipts
+- ✅ Team management
 **In Progress:**
 - ⏳ Stripe integration (Iulian)
 - ⏳ Landing pages (Tania)
